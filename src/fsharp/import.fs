@@ -273,7 +273,7 @@ let rec ImportProvidedType (env:ImportMap) (m:range) (* (tinst:TypeInst) *) (st:
                 let args = st.PApplyArray((fun st -> st.GetGenericArguments()),"GetGenericArguments",m) |> Array.map (ImportProvidedType env m (* tinst *) ) |> List.ofArray 
                 tcref,args
             else 
-                let tcref = ImportProvidedNamedType env m st
+                let tcref = ImportProvidedNamedType env m (st.PApply((fun st -> st.GetElementType()),m))
                 tcref, [] 
         
         /// Adjust for the known primitive numeric types that accept units of measure. 
